@@ -40,7 +40,24 @@ const limit = 20
 
 ### 4. All the companies that had a Valuation Amount of more than 100.000.000 and have been founded before 2010. Retrieve only the `name` and `ipo` fields.
 
-<!-- Your Code Goes Here -->
+{
+  '$and': [
+    {
+      'founded_year': {
+        '$lt': 2010
+      }
+    }, {
+      'ipo.valuation_amount': {
+        '$gt': 100000000
+      }
+    }
+  ]
+};
+const projection = {
+  'ipo': 1, 
+  'name': 1, 
+  '_id': 0
+}
 
 ### 5. All the companies that have less than 1000 employees and have been founded before 2005. Order them by the number of employees and limit the search to 10 companies.
 
@@ -60,8 +77,11 @@ const limit = 20
 
 ### 6. All the companies that don't include the `partners` field.
 
-<!-- Your Code Goes Here -->
-
+const filter = {
+  'partners': {
+    '$exists': true
+  }
+}
 ### 7. All the companies that have a null type of value on the `category_code` field.
 
 <!-- Your Code Goes Here -->
@@ -84,7 +104,15 @@ const limit = 20
 
 ### 12. All the companies founded before 2000 that have an acquisition amount of more than 10.000.000
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'founded_year': {
+    '$lt': 2000
+  }, 
+  'acquisition.price_amount': {
+    '$gt': 10000000
+  }
+};
+
 
 ### 13. All the companies that have been acquired after 2010, order by the acquisition amount, and retrieve only their `name` and `acquisition` field.
 
